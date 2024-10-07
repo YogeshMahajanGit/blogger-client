@@ -13,18 +13,18 @@ export default function Navbar() {
               <text
                 x="5"
                 y="35"
-                font-family="Bitter,serif"
-                font-size="30"
+                fontFamily="Bitter, serif"
+                fontSize="30"
                 fill="#242424"
                 stroke="5"
-                stroke-width="6"
+                strokeWidth="6"
                 fontWeight="700"
               >
                 Blogger
               </text>
             </svg>
           </Link>
-          <div className="search ml-4 bg-[#f9f9f9] w-[240px] h-[40px] rounded-[20px] border-none items-center flex text-black">
+          <div className="search ml-4 bg-[#f9f9f9] w-[240px] h-[40px] rounded-[20px] border-none items-center flex text-black max-[600px]:hidden">
             <div className="icon ml-3 mr-3 felx">
               <svg
                 className="align-middle"
@@ -36,20 +36,37 @@ export default function Navbar() {
               >
                 <path
                   fill="currentColor"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M4.092 11.06a6.95 6.95 0 1 1 13.9 0 6.95 6.95 0 0 1-13.9 0m6.95-8.05a8.05 8.05 0 1 0 5.13 14.26l3.75 3.75a.56.56 0 1 0 .79-.79l-3.73-3.73A8.05 8.05 0 0 0 11.042 3z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </div>
             <input
               type="text"
-              className="bg-transparent p-[10px 20px 10px 0] outline-none border-none "
+              className="bg-transparent p-[10px 20px 10px 0] outline-none border-none"
               placeholder="Search"
             />
           </div>
         </div>
-        <div className="write mr-10">
+        <div className="icon hidden align-middle ml-3 mr-3 max-[600px]:block p-1">
+          <svg
+            className="align-middle"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              fillRule="evenodd"
+              d="M4.092 11.06a6.95 6.95 0 1 1 13.9 0 6.95 6.95 0 0 1-13.9 0m6.95-8.05a8.05 8.05 0 1 0 5.13 14.26l3.75 3.75a.56.56 0 1 0 .79-.79l-3.73-3.73A8.05 8.05 0 0 0 11.042 3z"
+              clipRule="evenodd"
+            ></path>
+          </svg>
+        </div>
+        <div className="write mr-10 max-[400px]:mr-4 ">
           <Link href={""}>
             <div className="items-center leading-5 text-[#6B6B6B] hover:text-black flex">
               <svg

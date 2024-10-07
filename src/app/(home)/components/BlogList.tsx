@@ -1,11 +1,12 @@
 import React from "react";
 import { Blog } from "@/types";
+import BlogCard from "./BlogCard";
 
 export default function BlogList({ blogs }: { blogs: Blog[] }) {
   return (
-    <div>
+    <div className="pt-14">
       {blogs.map((blog) => (
-        <h1 key={blog._id}>{blog.title}</h1>
+        <BlogCard key={blog._id} blog={blog} />
       ))}
     </div>
   );

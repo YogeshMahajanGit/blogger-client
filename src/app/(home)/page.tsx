@@ -1,3 +1,4 @@
+// import { Blog } from "@/types";
 import BlogList from "./components/BlogList";
 
 export default async function Home() {
@@ -6,13 +7,10 @@ export default async function Home() {
   if (!response.ok) {
     throw new Error("An error occurred while fetching the blogs");
   }
-
   const blogs = await response.json();
-  console.log(blogs);
-
+  // console.log(blogs);
   return (
-    <div className="max-w-[1336px] m-auto">
-      <div className="pt-14"></div>
+    <div className="p-2 lg:max-w-[1000px] m-auto md:max-w-[800px] sm:max-w-[600px] max-[600px]:mx-5  max-[300px]:w-[100%]">
       <BlogList blogs={blogs} />
     </div>
   );

@@ -19,3 +19,7 @@ export type Blog = {
 export type Blogger = {
   name: string;
 };
+
+export type HomeProps = {
+  blogs: Blog[]; // Array of Blog objects
+};
