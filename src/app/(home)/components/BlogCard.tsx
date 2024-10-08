@@ -1,8 +1,8 @@
 import { Blog } from "@/types";
 import Image from "next/image";
 import React from "react";
-import img from "./../../../components/yogesh.jpg";
 import Link from "next/link";
+import Profile from "@/components/Profile";
 
 export default function BlogCard({ blog }: { blog: Blog }) {
   const date = new Date(blog.createdAt);
@@ -20,13 +20,7 @@ export default function BlogCard({ blog }: { blog: Blog }) {
               <div className="flex mb-4 items-center">
                 <div className="mr-4">
                   <div className="bg-transparent border-none flex items-center">
-                    <div className="block relative">
-                      <Image
-                        className="w-[32px] h-[32px] bg-[#f2f2f2] rounded-[50%] align-middle"
-                        src={img}
-                        alt=""
-                      />
-                    </div>
+                    <Profile />
                   </div>
                 </div>
                 <div className="pr-1">

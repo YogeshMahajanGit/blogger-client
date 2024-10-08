@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import img from "./yogesh.jpg";
+import Profile from "./Profile";
 
 export default function Navbar() {
   return (
@@ -92,17 +91,7 @@ export default function Navbar() {
             </div>
           </Link>
         </div>
-        <div className="profile block">
-          <button className="bg-transparent border-none flex items-center">
-            <div className="block relative">
-              <Image
-                className="w-[32px] h-[32px] bg-[#f2f2f2] rounded-[50%] align-middle"
-                src={img}
-                alt=""
-              />
-            </div>
-          </button>
-        </div>
+        <Profile />
       </div>
     </nav>
   );

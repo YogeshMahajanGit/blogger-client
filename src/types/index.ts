@@ -20,6 +20,6 @@ export type Blogger = {
   name: string;
 };
 
-export type HomeProps = {
-  blogs: Blog[]; // Array of Blog objects
-};
+// export type HomeProps = {
+//   blogs: Blog[];
+// };
