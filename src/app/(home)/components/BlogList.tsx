@@ -4,13 +4,25 @@ import BlogCard from "./BlogCard";
 
 export default async function BlogList() {
   //Data fetching
-  const response = await fetch(`${process.env.BACKEND_URL}/blogs`, {
-    cache: "no-store",
-  });
-  if (!response.ok) {
-    throw new Error("An error occurred while fetching the blogs");
+  let blogs;
+  try {
+    const response = await fetch(`${process.env.BACKEND_URL}/blogs`, {
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      throw new Error("An error occurred while fetching the blogs");
+    }
+    blogs = await response.json();
+  } catch (error) {
+    if (error) {
+      return (
+        <h1 className="font-semibold text-2xl mt-32 text-red-400">
+          An error occurred while Fetching the Blogs
+        </h1>
+      );
+    }
   }
-  const blogs = await response.json();
+
   return (
     <div className="pt-14">
       {blogs.map((blog: Blog) => (
