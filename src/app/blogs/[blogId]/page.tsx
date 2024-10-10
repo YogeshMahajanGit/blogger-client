@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { Blog } from "@/types";
-import img from "@/components/newW.webp";
+// import img from "@/components/newW.webp";
 import Image from "next/image";
 import Profile from "@/components/Profile";
 
@@ -39,15 +39,14 @@ export default async function SingleBlogPage({
       <div className="max-w-[670px] mx-6 w-full">
         <div>
           <h1 className="my-9 leading-[1.2] font-bold text-5xl">
-            Handling Documents in React, Efficiently Storing in S3, and
-            Referencing in MSSQL
+            {blog.title}
           </h1>
           <div>
             <div className="flex items-center">
               <div className="flex align-middle items-center">
                 <Profile />
                 <div className="ml-3 flex gap-4 items-center">
-                  <div className="text-xl font-medium">Yogesh Mahajan</div>
+                  <div className="text-xl font-medium">{blog.blogger.name}</div>
                   <div className="text-xs font-light">4 min read</div>
                   <div className="text-xs font-light">May 16 2024</div>
                 </div>
@@ -92,11 +91,21 @@ export default async function SingleBlogPage({
           </div>
         </div>
         <figure className="mt-10">
-          <Image src={img} alt="The beautiful MDN logo." />
+          <Image
+            className="rounded-sm align-middle lg:w-[420px] lg:h-[214px]"
+            src={blog.coverImage}
+            alt="Picture of the blog"
+            loading="lazy"
+            layout="responsive"
+            objectFit="contain"
+            width={0}
+            height={0}
+          />
           <figcaption>
             <cite>Tile of blog</cite>
           </figcaption>
         </figure>
+        <div className="content">{blog.content}</div>
       </div>
     </div>
   );

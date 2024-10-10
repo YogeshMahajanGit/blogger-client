@@ -66,7 +66,7 @@ export default function Navbar() {
           </svg>
         </div>
         <div className="write mr-10 max-[400px]:mr-4 ">
-          <Link href={""}>
+          <Link href={"/new-story"}>
             <div className="items-center leading-5 text-[#6B6B6B] hover:text-black flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
