@@ -52,15 +52,27 @@ export default function NewStory() {
 
     // You can then send this form data to your backend API
     console.log(process.env.BACKEND_URL);
-    const res = await fetch(`http://localhost:5000/api/blogs`, {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
 
-    console.log(res);
+    try {
+      const res = await fetch(`http://localhost:5000/api/blogs`, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        // Handle HTTP errors
+        throw new Error(`Server error: ${res.status}`);
+      }
+
+      const data = await res.json();
+      console.log("Response data:", data);
+    } catch (error) {
+      const err = error as Error;
+      console.error("Error:", err.message);
+    }
   }
 
   return (
