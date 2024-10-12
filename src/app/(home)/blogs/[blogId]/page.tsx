@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { Blog } from "@/types";
-// import img from "@/components/newW.webp";
 import Image from "next/image";
 import Profile from "@/components/Profile";
 

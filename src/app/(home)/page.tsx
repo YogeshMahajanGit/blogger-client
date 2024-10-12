@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import BlogList from "./components/BlogList";
 import Loader from "@/components/Loader";
 
-
 export default async function Home() {
   return (
     <>
