@@ -5,15 +5,21 @@ import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
+import useTokenStore from "@/store";
 
 export default function LoginForm() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
+  //Token setup
+  const setToken = useTokenStore((state) => state.setToken);
+
+  //mutation
   const mutation = useMutation({
     mutationFn: handleLogin,
-    onSuccess: () => {
+    onSuccess: (res) => {
+      setToken(res.data.accessToken);
       router.push("/");
     },
   });

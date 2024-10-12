@@ -16,7 +16,8 @@
     "novel": "^0.1.22",
     "react": "^18",
     "react-dom": "^18",
-    "react-textarea-autosize": "^8.5.3"
+    "react-textarea-autosize": "^8.5.3",
+    "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
