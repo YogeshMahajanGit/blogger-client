@@ -19,6 +19,8 @@ export default function LoginForm() {
   const mutation = useMutation({
     mutationFn: handleLogin,
     onSuccess: (res) => {
+      //store in local storage
+
       setToken(res.data.accessToken);
       router.push("/");
     },
