@@ -10,3 +10,11 @@ const api = axios.create({
 export const handleLogin = async (data: { email: string; password: string }) =>
   //server call
   api.post("/users/login", data);
+
+export const handleRegister = async (data: {
+  name: string;
+  email: string;
+  password: string;
+}) =>
+  //server call
+  api.post("/users/register", data);

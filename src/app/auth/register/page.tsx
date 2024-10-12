@@ -1,16 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
+import { handleRegister } from "@/http/api";
+import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 
 export default function RegisterForm() {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
-  function handleSubmit() {}
+  const mutation = useMutation({
+    mutationFn: handleRegister,
+    onSuccess: () => {
+      router.push("/");
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent<EventTarget>) => {
+    e.preventDefault();
+    const name = nameRef.current?.value;
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+
+    if (!name || !email || !password) {
+      return;
+    }
+    //mutation
+    mutation.mutate({ name, email, password });
+  };
   return (
     <div>
       <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -25,9 +46,8 @@ export default function RegisterForm() {
               name
             </label>
             <input
+              ref={nameRef}
               type="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               placeholder="Enter your name"
             />
@@ -38,16 +58,17 @@ export default function RegisterForm() {
               Email
             </label>
             <input
+              ref={emailRef}
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               placeholder="Enter your email"
             />
           </div>
 
-          {error && (
-            <div className="text-red-400 text-sm mb-2 text-center">{error}</div>
+          {mutation.isError && (
+            <div className="text-red-400 text-sm mb-2 text-center">
+              {mutation.error.message}
+            </div>
           )}
 
           <div className="mb-6">
@@ -55,15 +76,15 @@ export default function RegisterForm() {
               Password
             </label>
             <input
+              ref={passwordRef}
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               placeholder="Enter your password"
             />
           </div>
 
           <button
+            disabled={mutation.isError}
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
           >
