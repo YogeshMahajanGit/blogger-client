@@ -1,11 +1,23 @@
 "use client";
 
+import { handleLogin } from "@/http/api";
+import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  const mutation = useMutation({
+    mutationFn: handleLogin,
+    onSuccess: () => {
+      console.log("Login successful");
+      router.push("/");
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
@@ -15,9 +27,10 @@ export default function LoginForm() {
 
     if (!email || !password) {
       console.log("Both fildes are required");
+      return;
     }
-    console.log(email, "...", password);
-    //server call
+    //mutation
+    mutation.mutate({ email, password });
   };
 
   return (
