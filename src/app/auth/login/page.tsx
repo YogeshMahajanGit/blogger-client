@@ -14,7 +14,6 @@ export default function LoginForm() {
   const mutation = useMutation({
     mutationFn: handleLogin,
     onSuccess: () => {
-      console.log("Login successful");
       router.push("/");
     },
   });
@@ -26,7 +25,6 @@ export default function LoginForm() {
     const password = passwordRef.current?.value;
 
     if (!email || !password) {
-      console.log("Both fildes are required");
       return;
     }
     //mutation
@@ -41,6 +39,12 @@ export default function LoginForm() {
       >
         <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
 
+        {mutation.isError && (
+          <div className="text-red-400 text-sm mb-2 text-center">
+            User Not Found!
+          </div>
+        )}
+
         <div className="mb-4">
           <label className="block mb-2 text-sm font-bold text-gray-700">
             Email
@@ -52,10 +56,6 @@ export default function LoginForm() {
             placeholder="Enter your email"
           />
         </div>
-
-        {/* {error && (
-          <div className="text-red-400 text-sm mb-2 text-center">{error}</div>
-        )} */}
 
         <div className="mb-6">
           <label className="block mb-2 text-sm font-bold text-gray-700">
@@ -70,6 +70,7 @@ export default function LoginForm() {
         </div>
 
         <button
+          disabled={mutation.isPending}
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
         >
