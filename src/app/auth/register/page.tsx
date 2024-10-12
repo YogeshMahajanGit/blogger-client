@@ -1,24 +1,23 @@
 "use client";
 
 import { handleRegister } from "@/http/api";
-import useTokenStore from "@/store";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import Cookies from "js-cookie";
 
 export default function RegisterForm() {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const setToken = useTokenStore((state) => state.setToken);
 
   const mutation = useMutation({
     mutationFn: handleRegister,
+    //Store token in a cookie
     onSuccess: (res) => {
-      //store in local storage
-      setToken(res.data.accessToken);
+      Cookies.set("token", res.data.accessToken, { expires: 1 });
       router.push("/");
     },
   });
