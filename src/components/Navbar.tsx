@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Profile from "./Profile";
+import MyPopover from "./Popover";
 
 export default function Navbar() {
   return (
@@ -91,7 +92,9 @@ export default function Navbar() {
             </div>
           </Link>
         </div>
-        <Profile />
+        <MyPopover>
+          <Profile />
+        </MyPopover>
       </div>
     </nav>
   );

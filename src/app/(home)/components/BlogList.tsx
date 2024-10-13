@@ -25,6 +25,7 @@ export default async function BlogList() {
 
   return (
     <div className="pt-14">
+      <div></div>
       {blogs.map((blog: Blog) => (
         <BlogCard key={blog._id} blog={blog} />
       ))}
