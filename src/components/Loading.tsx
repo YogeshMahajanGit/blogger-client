@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import { useEffect } from "react";
 
 const styles = {
   width: "70px",
@@ -20,11 +22,16 @@ const keyframes = `
   }
 `;
 
-// Inject keyframes into the document head
-const styleSheet = document.styleSheets[0];
-styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+// const styleSheet = document.styleSheets[0];
+// styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
 
 export default function Loading() {
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      const styleSheet = document.styleSheets[0];
+      styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+    }
+  }, []);
   return (
     <div className="h-[80vh] w-[100%] flex items-center justify-center">
       <div style={styles}></div>

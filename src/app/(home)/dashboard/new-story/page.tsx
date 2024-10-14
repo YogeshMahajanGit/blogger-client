@@ -70,12 +70,19 @@ export default function NewStory() {
 
   return (
     <div className="flex justify-center w-full mt-10">
-      <div className="w-[70%]">
+      <div className="w-[80%]">
         <div className="w-full flex flex-col gap-1">
           <form onSubmit={handleSubmit}>
-            <button type="submit" className="p-2 text-red-400 font-bold">
-              Submit Blog
-            </button>
+            <div className="right-0 flex flex-row-reverse">
+              <button
+                type="submit"
+                style={{ backgroundColor: "#48bb78", color: "#fff" }}
+                className="px-3 py-1 hover:bg-green-700
+                font-bold rounded transition"
+              >
+                Publish
+              </button>
+            </div>
 
             <TextareaAutosize
               placeholder="Title"
@@ -87,7 +94,7 @@ export default function NewStory() {
 
             <div className="flex justify-around flex-row-reverse">
               {preview && (
-                <div className="w-[320px] border flex items-center justify-center">
+                <div className="w-[320px] flex items-center justify-center hover:border-4 hover:border-green-500 transition">
                   <Image
                     src={preview}
                     alt="Preview"
@@ -97,18 +104,10 @@ export default function NewStory() {
                   />
                 </div>
               )}
-              <div className="w-[320px] bg-white p-4 rounded-2xl flex flex-col gap-8 border border-slate-400">
-                <div className="text-center">
-                  <h1 className="text-2xl font-medium">
-                    Upload Your Blog Image
-                  </h1>
-                  <p className="text-gray-300">
-                    Files Should be less than 5 MB
-                  </p>
-                </div>
+              {!preview && (
                 <div
                   onClick={handleInputClick}
-                  className="w-full p-8 border-2 rounded-2xl group flex flex-col items-center justify-center border-dashed border-blue-400 cursor-pointer"
+                  className="w-[60%] p-2  border-2 rounded-2xl group flex flex-col items-center justify-center border-dashed border-blue-400 cursor-pointer "
                 >
                   <input
                     ref={inputRef}
@@ -137,7 +136,7 @@ export default function NewStory() {
                     </g>
                   </svg>
                 </div>
-              </div>
+              )}
             </div>
 
             <EditorPage setContent={(content) => setContent(content)} />

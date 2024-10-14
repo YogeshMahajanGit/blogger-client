@@ -1,9 +1,8 @@
 "use client";
 
 import { handleLogin } from "@/http/api";
-import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
@@ -11,28 +10,37 @@ export default function LoginForm() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  //mutation
-  const mutation = useMutation({
-    mutationFn: handleLogin,
-    onSuccess: (res) => {
-      //Store token in a cookie
-      Cookies.set("token", res.data.accessToken, { expires: 1 });
-      router.push("/");
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent<EventTarget>) => {
+  const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
 
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
+    // Basic validation
     if (!email || !password) {
+      setError("Email and password are required.");
       return;
     }
-    //mutation
-    mutation.mutate({ email, password });
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await handleLogin({ email, password });
+      // Store token in a cookie
+      Cookies.set("token", res.data.accessToken, { expires: 1 });
+      router.push("/");
+    } catch (err) {
+      // Handle error
+      const errorMessage =
+        (err as Error).message || "Login failed. User not found.";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,10 +51,8 @@ export default function LoginForm() {
       >
         <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
 
-        {mutation.isError && (
-          <div className="text-red-400 text-sm mb-2 text-center">
-            User Not Found!
-          </div>
+        {error && (
+          <div className="text-red-400 text-sm mb-2 text-center">{error}</div>
         )}
 
         <div className="mb-4">
@@ -74,14 +80,15 @@ export default function LoginForm() {
         </div>
 
         <button
-          disabled={mutation.isPending}
+          disabled={loading}
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
-        <div className="mt-4 text-center tetx-sm">
-          Don&apos;t have an account
+
+        <div className="mt-4 text-center text-sm">
+          Don&apos;t have an account?{" "}
           <Link href="/auth/register" className="underline">
             Sign up
           </Link>

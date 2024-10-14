@@ -1,10 +1,9 @@
 "use client";
 
 import { handleRegister } from "@/http/api";
-import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Cookies from "js-cookie";
 
 export default function RegisterForm() {
@@ -12,28 +11,39 @@ export default function RegisterForm() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const mutation = useMutation({
-    mutationFn: handleRegister,
-    //Store token in a cookie
-    onSuccess: (res) => {
-      Cookies.set("token", res.data.accessToken, { expires: 1 });
-      router.push("/");
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent<EventTarget>) => {
+  const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
+
     const name = nameRef.current?.value;
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
+    // Basic validation
     if (!name || !email || !password) {
+      setError("All fields are required.");
       return;
     }
-    //mutation
-    mutation.mutate({ name, email, password });
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await handleRegister({ name, email, password });
+      // Store token in a cookie
+      Cookies.set("token", res.data.accessToken, { expires: 1 });
+      router.push("/");
+    } catch (err) {
+      // Handle error
+      const errorMessage = (err as Error).message || "Registration failed.";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div>
       <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -43,13 +53,17 @@ export default function RegisterForm() {
         >
           <h2 className="text-3xl font-bold text-center mb-6">Register</h2>
 
+          {error && (
+            <div className="text-red-400 text-sm mb-2 text-center">{error}</div>
+          )}
+
           <div className="mb-4">
             <label className="block mb-2 text-sm font-bold text-gray-700">
-              name
+              Name
             </label>
             <input
               ref={nameRef}
-              type="name"
+              type="text"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               placeholder="Enter your name"
             />
@@ -67,12 +81,6 @@ export default function RegisterForm() {
             />
           </div>
 
-          {mutation.isError && (
-            <div className="text-red-400 text-sm mb-2 text-center">
-              {mutation.error.message}
-            </div>
-          )}
-
           <div className="mb-6">
             <label className="block mb-2 text-sm font-bold text-gray-700">
               Password
@@ -86,14 +94,14 @@ export default function RegisterForm() {
           </div>
 
           <button
-            disabled={mutation.isError}
+            disabled={loading}
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </button>
-          <div className="mt-4 text-center tetx-sm">
-            have an account
+          <div className="mt-4 text-center text-sm">
+            Already have an account?{" "}
             <Link href="/auth/login" className="underline">
               Sign in
             </Link>
