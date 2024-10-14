@@ -15,7 +15,7 @@ export default function MyPopover({ children }: MyPopoverProps) {
   function handleLogOut() {
     Cookies.remove("token");
 
-    router.push("/auth/login");
+    router.push("/auth");
   }
 
   return (
