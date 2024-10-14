@@ -1,12 +1,19 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 const config: Config = {
+  plugins: [typography],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  extends: ["plugin:@typescript-eslint/recommended"],
+  rules: {
+    "@typescript-eslint/no-require-imports": "off",
+  },
   theme: {
+    parser: "@typescript-eslint/parser",
     fontFamily: {
       playfair: ["Playfair Display", "serif"],
     },
@@ -34,7 +41,5 @@ const config: Config = {
       },
     },
   },
-
-  plugins: [],
 };
 export default config;

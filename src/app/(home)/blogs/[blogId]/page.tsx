@@ -3,6 +3,8 @@ import React from "react";
 import { Blog } from "@/types";
 import Image from "next/image";
 import Profile from "@/components/Profile";
+import parse from "html-react-parser";
+import convertTimeString from "@/timer";
 
 export default async function SingleBlogPage({
   params,
@@ -12,12 +14,12 @@ export default async function SingleBlogPage({
   //Data fetching
   let blog: Blog | null = null;
 
+  let formattedDate;
+
   try {
     const response = await fetch(
       `${process.env.BACKEND_URL}/blogs/${params.blogId}`,
-      {
-        cache: "no-store",
-      }
+      { next: { revalidate: 1000 } }
     );
 
     if (!response.ok) {
@@ -25,6 +27,8 @@ export default async function SingleBlogPage({
     }
 
     blog = await response.json();
+
+    formattedDate = convertTimeString((blog as Blog).createdAt);
   } catch (error) {
     throw new Error("An error occurred while fetching the blogs");
   }
@@ -47,7 +51,7 @@ export default async function SingleBlogPage({
                 <div className="ml-3 flex gap-4 items-center">
                   <div className="text-xl font-medium">{blog.blogger.name}</div>
                   <div className="text-xs font-light">4 min read</div>
-                  <div className="text-xs font-light">May 16 2024</div>
+                  <div className="text-xs font-light">{formattedDate}</div>
                 </div>
               </div>
               <div></div>
@@ -55,7 +59,7 @@ export default async function SingleBlogPage({
           </div>
           <div className="mt-8 py-2 px-4 border-y  border-slate-300">
             <div className="flex items-center gap-6 text-[13px] justify-between">
-              <span>Oct 4</span>
+              <span>{formattedDate}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -100,11 +104,11 @@ export default async function SingleBlogPage({
             width={0}
             height={0}
           />
-          <figcaption>
-            <cite>Tile of blog</cite>
+          <figcaption className="mb-10 flex items-center justify-center bg-gray-200 rounded-sm">
+            <cite>{blog.title}</cite>
           </figcaption>
         </figure>
-        <div className="content">{blog.content}</div>
+        <div className="content prose lg:prose-xl">{parse(blog.content)}</div>
       </div>
     </div>
   );

@@ -3,14 +3,11 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import Profile from "@/components/Profile";
+import parse from "html-react-parser";
+import convertTimeString from "@/timer";
 
 export default function BlogCard({ blog }: { blog: Blog }) {
-  const date = new Date(blog.createdAt);
-  const options: Intl.DateTimeFormatOptions = {
-    month: "short",
-    day: "numeric",
-  };
-  const formattedDate = date.toLocaleString("en-US", options);
+  const formattedDate = convertTimeString(blog.createdAt);
   return (
     <div>
       <div className="max-h-[450px] overflow-hidden">
@@ -36,8 +33,9 @@ export default function BlogCard({ blog }: { blog: Blog }) {
                     </h2>
                   </div>
                   <div className="pt-4">
-                    <h4 className="tracking-normal font-normal leading-5 text-balance ">
-                      {blog.content.slice(0, 140)}...
+                    {/* className="content ">{parse(blog.content)} */}
+                    <h4 className="tracking-normal font-normal leading-5 text-balance prose lg:prose-xl ">
+                      {parse(blog.content.slice(0, 140))}...
                     </h4>
                   </div>
                   <div className="h-11 pt-[20px] md:pt-[75px] ">
