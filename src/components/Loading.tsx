@@ -22,9 +22,6 @@ const keyframes = `
   }
 `;
 
-// const styleSheet = document.styleSheets[0];
-// styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
-
 export default function Loading() {
   useEffect(() => {
     if (typeof document !== "undefined") {

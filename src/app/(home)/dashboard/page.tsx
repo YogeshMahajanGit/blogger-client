@@ -1,9 +1,14 @@
+import Sidebar from "@/components/Sidebar";
+
 // app/dashboard/page.tsx
 export default function DashboardPage() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Welcome to the Dashboard</h1>
-      <p>This is the protected part of the application.</p>
-    </div>
+    <>
+      <div className="flex-1 p-6">
+        <Sidebar />
+        <h2 className="text-2xl font-bold">Main Content Area</h2>
+        <p>This is where the content of the dashboard will be displayed.</p>
+      </div>
+    </>
   );
 }

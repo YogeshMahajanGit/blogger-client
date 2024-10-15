@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Profile from "./Profile";
 import MyPopover from "./Popover";
+import StarIcon from "./StarIcon";
 
 export default function Navbar() {
   return (
@@ -66,8 +67,17 @@ export default function Navbar() {
             ></path>
           </svg>
         </div>
-        <div className="write mr-10 max-[400px]:mr-4 ">
-          <Link href={"/dashboard/new-story"}>
+        <Link href={"/dashboard/generate"}>
+          <div className="flex items-center gap-1 pr-6">
+            <StarIcon />
+            <div className="leading-5 text-[#6B6B6B] hover:text-black">
+              AI Write
+            </div>
+          </div>
+        </Link>
+
+        <Link href={"/dashboard/new-story"}>
+          <div className="write mr-10 max-[400px]:mr-4 ">
             <div className="items-center leading-5 text-[#6B6B6B] hover:text-black flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -90,8 +100,8 @@ export default function Navbar() {
                 Write
               </div>
             </div>
-          </Link>
-        </div>
+          </div>
+        </Link>
         <MyPopover>
           <Profile />
         </MyPopover>

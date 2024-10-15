@@ -12,7 +12,6 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = Cookies.get("token");
-    console.log(token);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -21,7 +20,6 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
-    // Handle errors
     return Promise.reject(error);
   }
 );
@@ -44,3 +42,10 @@ export const createBlog = async (data: FormData) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+export const generateBlog = async (
+  prompt: string
+): Promise<{ content: string }> => {
+  const response = await api.post("blogs/generate-blog", { prompt: prompt });
+  return response.data;
+};
