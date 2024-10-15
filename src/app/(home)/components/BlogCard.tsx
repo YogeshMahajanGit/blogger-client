@@ -33,7 +33,6 @@ export default function BlogCard({ blog }: { blog: Blog }) {
                     </h2>
                   </div>
                   <div className="pt-4">
-                    {/* className="content ">{parse(blog.content)} */}
                     <h4 className="tracking-normal font-normal leading-5 text-balance prose lg:prose-xl ">
                       {parse(blog.content.slice(0, 140))}...
                     </h4>

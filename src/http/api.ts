@@ -49,3 +49,8 @@ export const generateBlog = async (
   const response = await api.post("blogs/generate-blog", { prompt: prompt });
   return response.data;
 };
+
+export const listUserBlog = async (id: string) => {
+  const response = await api.get(`/blogs/user/${id}`);
+  return response.data;
+};
