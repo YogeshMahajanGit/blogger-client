@@ -1,4 +1,5 @@
 export type Blog = {
+  json(): unknown;
   _id: string;
   title: string;
   content: string;

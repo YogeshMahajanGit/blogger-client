@@ -3,6 +3,7 @@ import React, { useState, ReactNode } from "react";
 import { Popover as TinyPopover } from "react-tiny-popover";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface MyPopoverProps {
   children: ReactNode;
@@ -48,30 +49,32 @@ export default function MyPopover({ children }: MyPopoverProps) {
               </div>
             </div>
 
-            <div className="p-2">
-              <div className="flex items-center space-x-3 hover:bg-gray-100 hover:text-black transition-colors duration-200 cursor-pointer p-1 rounded-md">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  aria-label="Stories"
-                >
-                  <path
-                    stroke="currentColor"
-                    d="M4.75 21.5h14.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25H4.75a.25.25 0 0 0-.25.25v18.5c0 .138.112.25.25.25Z"
-                  ></path>
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    d="M8 8.5h8M8 15.5h5M8 12h8"
-                  ></path>
-                </svg>
+            <Link href="/dashboard/stories">
+              <div className="p-2">
+                <div className="flex items-center space-x-3 hover:bg-gray-100 hover:text-black transition-colors duration-200 cursor-pointer p-1 rounded-md">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    aria-label="Stories"
+                  >
+                    <path
+                      stroke="currentColor"
+                      d="M4.75 21.5h14.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25H4.75a.25.25 0 0 0-.25.25v18.5c0 .138.112.25.25.25Z"
+                    ></path>
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      d="M8 8.5h8M8 15.5h5M8 12h8"
+                    ></path>
+                  </svg>
 
-                <span>Stories</span>
+                  <span>Stories</span>
+                </div>
               </div>
-            </div>
+            </Link>
 
             <div className="border-t">
               <button

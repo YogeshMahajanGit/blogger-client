@@ -1,3 +1,4 @@
+import { Blog } from "@/types";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -7,6 +8,15 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+export const getBlogById = async (id: string): Promise<Blog> => {
+  try {
+    const response = await api.get(`/blogs/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Error fetching the blog", error as Error);
+  }
+};
 
 //axios interceptor
 api.interceptors.request.use(
@@ -42,6 +52,22 @@ export const createBlog = async (data: FormData) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+export const updateBlog = async (
+  id: string,
+  formData: FormData
+): Promise<Blog> => {
+  try {
+    const response = await api.patch(`/blogs/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data as Blog;
+  } catch (error) {
+    throw new Error("Error updating the blog", error as Error);
+  }
+};
 
 export const generateBlog = async (
   prompt: string

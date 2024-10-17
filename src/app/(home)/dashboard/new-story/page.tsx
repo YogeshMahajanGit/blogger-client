@@ -1,6 +1,5 @@
 "use client";
 
-import EditorPage from "@/components/Editor";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
@@ -8,6 +7,7 @@ import "dotenv/config";
 import { createBlog } from "@/http/api";
 import Loading from "@/components/Loading";
 import { useRouter } from "next/navigation";
+import Editor from "@/components/Editor";
 
 export default function NewStory() {
   const [title, setTitle] = useState<string | undefined>("");
@@ -138,8 +138,9 @@ export default function NewStory() {
                 </div>
               )}
             </div>
-
-            <EditorPage setContent={(content) => setContent(content)} />
+            <div className="my-12 rounded-md">
+              <Editor value={content as string} onChange={setContent} />
+            </div>
           </form>
         </div>
       </div>

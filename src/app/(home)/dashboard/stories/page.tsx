@@ -1,17 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { listUserBlog } from "@/http/api";
+import ButtonPopover from "@/components/ButtonPopover";
 
 interface DecodedToken {
   sub: string;
 }
 
 interface Blog {
+  _id: string | null | undefined;
   title: string;
   coverImage: string;
   date: string;
@@ -71,7 +72,7 @@ export default function Stories() {
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
-
+  console.log(content);
   return (
     <div className="flex justify-center mb-12">
       <div className="w-8/12 ">
@@ -82,7 +83,7 @@ export default function Stories() {
         <div className="mt-10 flex flex-col gap-5">
           {content.map((ele) => (
             <div
-              key={ele.coverImage}
+              key={ele._id}
               className="flex items-center gap-2 p-3 border-gray-200 border rounded-lg shadow-inner w-[80%]"
             >
               <div className="w-32 h-32">
@@ -100,10 +101,10 @@ export default function Stories() {
                 <h2 className="text-wrap font-bold text-xl mb-6">
                   {ele.title}
                 </h2>
-                <p className="text-xs">{ele.date}</p>{" "}
+                <p className="text-xs">{ele.date}</p>
               </div>
               <div>
-                <button>
+                <ButtonPopover id={ele._id as string}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -118,7 +119,7 @@ export default function Stories() {
                       d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
                     />
                   </svg>
-                </button>
+                </ButtonPopover>
               </div>
             </div>
           ))}
