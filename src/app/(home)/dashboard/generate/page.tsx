@@ -78,7 +78,7 @@ export default function Generate() {
         <div className="py-20 flex items-center text-center flex-col justify-center">
           <div className="flex gap-1">
             <h1 className="font-bold text-6xl leading-4 text-green-300 bg-clip-text">
-              Hey, Yogesh
+              Hey
             </h1>
             <span>
               <StarIcon />
