@@ -53,6 +53,10 @@ export const createBlog = async (data: FormData) =>
     },
   });
 
+export const deleteBlog = async (id: string) => {
+  api.delete(`/blogs/${id}`);
+};
+
 export const updateBlog = async (
   id: string,
   formData: FormData

@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { listUserBlog } from "@/http/api";
 import ButtonPopover from "@/components/ButtonPopover";
+import Loading from "@/components/Loading";
 
 interface DecodedToken {
   sub: string;
@@ -65,14 +66,19 @@ export default function Stories() {
     }
   }, [token]);
 
+  function handleBlogDeletion(deletedBlogId: string) {
+    setContent((prevContent) =>
+      prevContent.filter((blog) => blog._id !== deletedBlogId)
+    );
+  }
+
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
-  console.log(content);
   return (
     <div className="flex justify-center mb-12">
       <div className="w-8/12 ">
@@ -104,7 +110,10 @@ export default function Stories() {
                 <p className="text-xs">{ele.date}</p>
               </div>
               <div>
-                <ButtonPopover id={ele._id as string}>
+                <ButtonPopover
+                  id={ele._id as string}
+                  onDelete={handleBlogDeletion}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
