@@ -68,7 +68,7 @@ export default function Navbar() {
           </svg>
         </div>
         <Link href={"/dashboard/generate"}>
-          <div className="flex items-center gap-1 pr-6">
+          <div className="sm:flex items-center gap-1 pr-6 hidden">
             <StarIcon />
             <div className="leading-5 text-[#6B6B6B] hover:text-black">
               AI Write

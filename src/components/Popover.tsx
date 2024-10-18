@@ -4,6 +4,7 @@ import { Popover as TinyPopover } from "react-tiny-popover";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import StarIcon from "./StarIcon";
 
 interface MyPopoverProps {
   children: ReactNode;
@@ -30,22 +31,14 @@ export default function MyPopover({ children }: MyPopoverProps) {
           <div className="absolute -right-10 mt-2 w-52 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="p-2">
               <div className="flex items-center space-x-3 hover:bg-gray-100 hover:text-black transition-colors duration-200 cursor-pointer p-1 rounded-md">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  aria-label="Profile"
-                >
-                  <circle cx="12" cy="7" r="4.5" stroke="currentColor" />
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    d="M3.5 21.5v-4.342C3.5 15.414 7.306 14 12 14s8.5 1.414 8.5 3.158V21.5"
-                  />
-                </svg>
-                <span>My Profile</span>
+                <Link href={"/dashboard/generate"}>
+                  <div className="sm:flex items-center gap-1 pr-6 hidden">
+                    <StarIcon />
+                    <div className="leading-5 text-[#6B6B6B] hover:text-black">
+                      AI Write
+                    </div>
+                  </div>
+                </Link>
               </div>
             </div>
 

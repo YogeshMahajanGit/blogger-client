@@ -2,17 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import blogger from "@/public/blogger.webp";
-// import { useRouter } from "next/navigation";
 
 export default function page() {
-  // const router = useRouter();
   return (
     <div className="bg-[#F7F4ED] h-screen overflow-hidden">
       <nav className="border-b border-gray-950">
         <div className="mx-16 flex py-4 items-center">
           <div className="text-4xl  font-playfair font-semibold">Blogger</div>
           <div className="flex-1"></div>
-          <div className="flex gap-6 items-center  justify-evenly">
+          <div className="sm:flex gap-6 items-center  justify-evenly hidden">
             <div>
               <Link href={"/auth/login"}>Write</Link>
             </div>
@@ -29,13 +27,13 @@ export default function page() {
           </div>
         </div>
       </nav>
-      <div className=" overflow-hidden mx-5">
-        <div className="block pt-20 px-16">
-          <div className="right-0 top-28 absolute w-[460px] h-[600px]">
+      <div className=" overflow-hidden mx-5 md:flex md:items-center">
+        <div className="block lg:pt-20 lg:px-16 pt-2">
+          <div className="right-0 top-28 absolute w-[460px] h-[600px] hidden lg:block">
             <Image className="align-middle" src={blogger} alt="" />
           </div>
-          <div className="mb-10 mt-16">
-            <h2 className="tracking-tight leading-[100%] text-[130px] font-playfair font-normal">
+          <div className="mb-10 mt-16 ">
+            <h2 className="tracking-tight leading-[100%] lg:text-[130px] text-[70px] md:text-[90px] font-playfair font-normal">
               Your Stories <br />
               Enhanced by
               <span

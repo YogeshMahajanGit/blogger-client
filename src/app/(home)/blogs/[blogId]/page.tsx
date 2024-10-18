@@ -38,7 +38,7 @@ export default async function SingleBlogPage({
   }
 
   return (
-    <div className="break-words flex items-center flex-col justify-between ">
+    <div className="break-words flex items-center flex-col justify-between px-6 ">
       <div className="max-w-[670px] mx-6 w-full">
         <div>
           <h1 className="my-9 leading-[1.2] font-bold text-5xl">

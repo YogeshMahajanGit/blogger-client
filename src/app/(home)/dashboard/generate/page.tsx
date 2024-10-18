@@ -74,10 +74,10 @@ export default function Generate() {
 
   return (
     <section className="h-[92vh] w-100%">
-      <div className="w-[60%] mx-auto">
-        <div className="py-20 flex items-center text-center flex-col justify-center">
+      <div className="sm:w-[60%] mx-auto w-[80%]">
+        <div className=" py-7 sm:py-20 flex items-center text-center flex-col justify-center">
           <div className="flex gap-1">
-            <h1 className="font-bold text-6xl leading-4 text-green-300 bg-clip-text">
+            <h1 className="font-bold text-4xl sm:text-6xl leading-4 text-green-300 bg-clip-text">
               Hey
             </h1>
             <span>
@@ -85,7 +85,7 @@ export default function Generate() {
             </span>
           </div>
           <div className="mt-12">
-            <h3 className="font-bold text-4xl leading-8 text-slate-500 new-class">
+            <h3 className="font-bold text-2xl sm:text-4xl leading-10 md:leading-8 text-slate-500 new-class">
               Have an idea?
               <span className="relative inline-block mx-2">
                 <span className="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-green-500 relative">
@@ -147,12 +147,10 @@ export default function Generate() {
           )}
         </div>
         {!loading && (
-          <div className="prose lg:prose-xl my-7 p-4 overflow-y-scroll no-scrollbar h-[70vh] w-[100%] mx-auto border  text-white bg-[#212121] rounded-lg">
+          <div className="prose lg:prose-xl my-10 p-4 overflow-y-scroll no-scrollbar h-[70vh] w-[100%] mx-auto border  text-white bg-[#212121] rounded-lg">
             {content ? parse(content) : <p>No content Write prompt</p>}
           </div>
         )}
-
-        <footer className="mt-8 text-2xl font-semibold">Happy Blog</footer>
       </div>
     </section>
   );

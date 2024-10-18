@@ -81,18 +81,20 @@ export default function Stories() {
   }
   return (
     <div className="flex justify-center mb-12">
-      <div className="w-8/12 ">
+      <div className="sm:w-[70%]  px-5">
         <div className="mt-14 mb-2 text-wrap border-b-2 border-gray-400 ">
-          <h1 className="leading-[1] font-semibold text-6xl ">Your library</h1>
+          <h1 className="leading-[1] font-semibold text-3xl sm:text-6xl ">
+            Your library
+          </h1>
         </div>
 
         <div className="mt-10 flex flex-col gap-5">
           {content.map((ele) => (
             <div
               key={ele._id}
-              className="flex items-center gap-2 p-3 border-gray-200 border rounded-lg shadow-inner w-[80%]"
+              className="md:flex items-center gap-2 p-3 border-gray-200 border rounded-lg shadow-inner w-[80%]"
             >
-              <div className="w-32 h-32">
+              <div className="md:w-32 md:h-32">
                 <Image
                   className="rounded-lg align-middle"
                   src={ele.coverImage}
@@ -103,7 +105,7 @@ export default function Stories() {
                   height={0}
                 />
               </div>
-              <div className="ml-2 w-[70%]">
+              <div className="ml-2 w-[70%] mt-4">
                 <h2 className="text-wrap font-bold text-xl mb-6">
                   {ele.title}
                 </h2>
